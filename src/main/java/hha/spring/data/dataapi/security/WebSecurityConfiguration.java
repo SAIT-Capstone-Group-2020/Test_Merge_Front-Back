@@ -2,6 +2,7 @@ package hha.spring.data.dataapi.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,16 +42,24 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         //Entry points
         http.authorizeRequests()
-                .antMatchers("/api/customer/**").permitAll()
-                .antMatchers("/api/admin/signin/**").permitAll()
-                .antMatchers("/api/admin/signup/**").permitAll()
-                .antMatchers("/api/categories/**").permitAll()
-                .antMatchers("/api/weighttype/**").permitAll()
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/index*", "/static/**", "/*.js", "/*.json", "/*.ico")
+                .permitAll()
+
                 .antMatchers("/api/admin/users/**").access("hasRole('ADMIN')")
                 .antMatchers("/api/admin/product/**").access("hasRole('ADMIN')")
                 .antMatchers("/api/admin/order/**").access("hasRole('ADMIN')")
                 //Disallow everthing else..
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
+
+        /*
+                .antMatchers("/api/customer/**").permitAll()
+                .antMatchers("/api/admin/signin/**").permitAll()
+                .antMatchers("/api/admin/signup/**").permitAll()
+                .antMatchers("/api/categories/**").permitAll()
+                .antMatchers("/api/weighttype/**").permitAll() */
+
 
         //Disable CSRF(cross site request forgery)
         http.cors().and().csrf().disable();
