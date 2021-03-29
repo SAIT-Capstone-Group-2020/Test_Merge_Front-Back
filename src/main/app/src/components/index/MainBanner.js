@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Slide from './Slide';
 import Slider from './Slider';
 
@@ -13,10 +12,7 @@ const MainBanner = () => {
               hiep hoa asian food market
             </h1>
             <h2 className="slider-header slider-h2">
-              This is the max characters. asdjnfkas dfnasdlkfja sdfj asldf
-              alksjd flkajsd flkaj dlkfja sdlkfj asdjf alksdj falksjd flaksdj
-              falsdkjf aslkdjf asdfalsdkjf asdlfkajsd fsaljd flaskdjf sa,dslafms
-              dklfansjfsd
+              We are an Asian Food Market which you can find a tons of special items with reasonable prices.
             </h2>
           </div>
           <div className="slider-wrap featured-wrap w-slider-mask">
@@ -39,7 +35,5 @@ const MainBanner = () => {
     </div>
   );
 };
-
-MainBanner.propTypes = {};
 
 export default MainBanner;

@@ -44,22 +44,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(
                         HttpMethod.GET,
-                        "/index*", "/static/**", "/*.js", "/*.json", "/*.ico")
+                        "/*","/index*", "/static/**", "/*.js", "/*.json", "/*.ico")
                 .permitAll()
-
-                .antMatchers("/api/admin/users/**").access("hasRole('ADMIN')")
-                .antMatchers("/api/admin/product/**").access("hasRole('ADMIN')")
-                .antMatchers("/api/admin/order/**").access("hasRole('ADMIN')")
-                //Disallow everthing else..
-                .anyRequest().permitAll();
-
-        /*
                 .antMatchers("/api/customer/**").permitAll()
                 .antMatchers("/api/admin/signin/**").permitAll()
                 .antMatchers("/api/admin/signup/**").permitAll()
                 .antMatchers("/api/categories/**").permitAll()
-                .antMatchers("/api/weighttype/**").permitAll() */
-
+                .antMatchers("/api/v2/**").permitAll()
+                .antMatchers("/api/weighttype/**").permitAll()
+                .antMatchers("/api/admin/users/**").access("hasRole('ADMIN')")
+                .antMatchers("/api/admin/product/**").access("hasRole('ADMIN')")
+                .antMatchers("/api/admin/order/**").access("hasRole('ADMIN')")
+                .antMatchers("/api/admin/report/**").access("hasRole('ADMIN')")
+                //Disallow everthing else..
+                .anyRequest().authenticated();
 
         //Disable CSRF(cross site request forgery)
         http.cors().and().csrf().disable();

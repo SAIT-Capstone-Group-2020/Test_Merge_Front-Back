@@ -1,7 +1,7 @@
 import React from 'react';
 import useScript from '../utils/useScript.hook';
-import Navbar from '../components/hoc/Navbar';
 import Footer from '../components/hoc/Footer';
+import Navbar from '../components/hoc/Navbar';
 import Summary from '../components/checkout/Summary';
 
 const CheckoutSummary = () => {
@@ -14,7 +14,7 @@ const CheckoutSummary = () => {
   return (
     <div>
       <Navbar />
-      <Summary />
+      <Summary/>
       <Footer />
     </div>
   );

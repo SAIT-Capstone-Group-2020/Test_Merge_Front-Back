@@ -1,57 +1,59 @@
 package hha.spring.data.dataapi.service;
 
+
+import hha.spring.data.dataapi.domain.ui.CurrentHolidayBanner;
+import hha.spring.data.dataapi.domain.ui.CurrentHomeBanner;
+import hha.spring.data.dataapi.domain.ui.CurrentPromotion;
+import hha.spring.data.dataapi.domain.ui.tf.Promotion;
+import hha.spring.data.dataapi.domain.ui.tf.TfCurrHoliday;
+import hha.spring.data.dataapi.domain.ui.tf.TfCurrHomeBanner;
+import hha.spring.data.dataapi.mapper.PromotionMapper;
+import hha.spring.data.dataapi.repository.HomeBannerRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.server.ResponseStatusException;
-
-import hha.spring.data.dataapi.domain.Banner;
-import hha.spring.data.dataapi.domain.BannerItem;
-import hha.spring.data.dataapi.domain.Product;
-import hha.spring.data.dataapi.repository.BannerItemRepository;
-import hha.spring.data.dataapi.repository.BannerRepository;
-
+@Service
 public class BannerService {
-
-    @Autowired
-    private BannerItemRepository bannerDao;
-
-
-    @Autowired
-    private BannerRepository bannerRepository;
-    /*
-    public List<BannerItem> getAllBanner() {
-        return bannerDao.getAllBannerInfo();
-    }*/
-
-
-    public Banner findByUrl(String url) {
-        return bannerRepository.findByUrl(url);
+    private HomeBannerRepository homeBannerRepository;
+    private PromotionMapper promotionMapper;
+    public BannerService(HomeBannerRepository homeBannerRepository, PromotionMapper promotionMapper) {
+        this.homeBannerRepository = homeBannerRepository;
+        this.promotionMapper = promotionMapper;
     }
 
-
-    public String addBanner(Banner banner) {
-        try {
-            bannerRepository.save(banner);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-        }
-
-        return "Successfully added";
-
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public List<CurrentHomeBanner> findCurrentHomeBanner() {
+        return homeBannerRepository.queryCurrentHomeBanner();
     }
 
-
-    public Banner getBannerById(int id) {
-        return bannerRepository.getOne(id);
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public List<CurrentPromotion> findCurrentPromotion() {
+        return homeBannerRepository.queryCurrentPromotion();
     }
 
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public CurrentHolidayBanner findCurrentHolidayBanner() {
+        return homeBannerRepository.queryCurrentHolidayBanner();
+    }
 
-    public void saveBanner(Banner banner) {
-        bannerRepository.save(banner);
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public TfCurrHoliday findTFCurrentHolidayBanner() {
+        return homeBannerRepository.queryTFCurrentHolidayBanner();
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public List<TfCurrHomeBanner> findTFCurrentHomeBanner() {
+        return homeBannerRepository.queryTFCurrentHomeBanner();
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public Promotion findCurrentPromotionTf2(){
+        return promotionMapper.currentWeeklyPromotion();
     }
 
 
 }
+

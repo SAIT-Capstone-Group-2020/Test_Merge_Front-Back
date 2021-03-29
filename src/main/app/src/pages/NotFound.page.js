@@ -39,7 +39,7 @@ const NotFound = () => {
               Sorry! The page you&#x27;re looking for does not exist.
             </h2>
             <a
-              href="/"
+              href="/#"
               className="button cc-white-button _404-slider-btn w-button"
             >
               Return home

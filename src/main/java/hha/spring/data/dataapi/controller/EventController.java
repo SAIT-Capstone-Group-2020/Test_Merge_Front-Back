@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import hha.spring.data.dataapi.domain.event.Event;
 import hha.spring.data.dataapi.service.EventService;
-
 @CrossOrigin
 @RestController
 public class EventController {
@@ -98,3 +97,4 @@ public class EventController {
 	}
 
 }
+

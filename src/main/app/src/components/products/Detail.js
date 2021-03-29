@@ -1,10 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Store } from '../hoc/Store';
+import { useGetCart, addToCart, saveLocal } from '../hoc/cart.actions';
 
 const Detail = () => {
+  const { state, dispatch } = useContext(Store);
   const { productId } = useParams();
   const [ product, setProduct ] = useState([]);
+  const [input, setInput] = useState(1);
+
+  const handleQuantityInputChange = e => {
+    setInput(e.target.value);
+  };
+
+  const testAdd = e => {
+    e.preventDefault();
+    if (e.keyCode === 13) {
+        return false;
+    }
+    addToCart(productId, input, dispatch);
+  };
 
   useEffect(() => {
     axios.get(`https://hha-capstone.herokuapp.com/api/customer/product/${productId}`)
@@ -14,7 +30,7 @@ const Detail = () => {
       .catch(err => {
         console.log(err);
       })
-  })
+  },[])
 
   return (
     <div className="section cc-product-detail">
@@ -45,13 +61,15 @@ const Detail = () => {
         <div className="product-detail-price">${ product.discount_price }</div>
       </div>
       <div className="add-to-cart">
-        <form className="w-commerce-commerceaddtocartform add-to-cart-default-state"><label for="quantity-3f8ec8b146ca9ed4b1d9cb3082673eb" className="label">Quantity</label>
+        <form className="w-commerce-commerceaddtocartform add-to-cart-default-state" onSubmit={testAdd}><label for="quantity-3f8ec8b146ca9ed4b1d9cb3082673eb" className="label">Quantity</label>
           <div className="product-detail-action-wrap">
-              <input type="number" pattern="^[0-9]+$" name="commerce-add-to-cart-quantity-input" min="1" className="w-commerce-commerceaddtocartquantityinput input-field cc-quantity-field" value="1"/><input type="submit" value="Add To Cart" className="w-commerce-commerceaddtocartbutton button cc-product-detail-cart-button"/></div>
+              <input type="number" pattern="^[0-9]+$" name="commerce-add-to-cart-quantity-input" min="1" className="w-commerce-commerceaddtocartquantityinput input-field cc-quantity-field" required
+                min={1} value={input}
+                onChange={handleQuantityInputChange}/><input type="submit" value="Add To Cart" className="w-commerce-commerceaddtocartbutton button cc-product-detail-cart-button"/></div>
         </form>
-        <div style={{"display":"none"}} className="w-commerce-commerceaddtocartoutofstock status-message">
+        {/* <div style={{"display":"none"}} className="w-commerce-commerceaddtocartoutofstock status-message">
           <div>This product is out of stock.</div>
-        </div>
+        </div> */}
         {/* <div data-node-type="commerce-add-to-cart-error" style="display:none" className="w-commerce-commerceaddtocarterror error-state">
         </div> */}
       </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import FeaturedSlider from './FeaturedSlider';
 import FeaturedSlide from './FeaturedSlide';
 
@@ -52,7 +51,5 @@ const Featured = () => {
     </div>
   );
 };
-
-Featured.propTypes = {};
 
 export default Featured;

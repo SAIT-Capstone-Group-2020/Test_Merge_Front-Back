@@ -6,7 +6,7 @@ const Footer = () => {
     <div className="footer-container">
       <div className="w-layout-grid footer">
         <div className="footer-div">
-          <a href="/" className="nav-logo-link w-inline-block">
+          <a href="/#" className="nav-logo-link w-inline-block">
           <div style={{"width": "100px","height": "100px"}}></div>
           </a>
         </div>
@@ -21,7 +21,7 @@ const Footer = () => {
         <div className="footer-div">
           <div className="label cc-footer-label">connect</div>
           <div className="links-section-footer">
-            <a href="https://www.instagram.com/hiep_hoa_asian_food_market/?hl=en" target="_blank" rel="noopener noreferrer" className="footer-link">Instagram</a>
+            <a href="https://www.instagram.com/hiephoaasianfoodmarket/" target="_blank" rel="noopener noreferrer" className="footer-link">Instagram</a>
             <a href="https://www.facebook.com/pages/category/Grocery-Store/Hiep-Hoa-Asian-Food-Market-111881587191113/" target="_blank" rel="noopener noreferrer" className="footer-link">Facebook</a>
             <a href="https://www.skipthedishes.com/hiep-hoa-asian-food-market" target="_blank" rel="noopener noreferrer" className="footer-link">Skip the Dishes</a>
           </div>

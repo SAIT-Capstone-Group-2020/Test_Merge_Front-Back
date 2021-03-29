@@ -1,21 +1,6 @@
 import React, { useState } from 'react';
 
 const ProductsHeader = ({ searchHandler }) => {
-  // const [searchValue, setSearchValue] = useState("");
-  
-  // const handleSearchInputChanges = (e) => {
-  //   setSearchValue(e.target.value);
-  // }
-
-  // const resetInputField = () => {
-  //   setSearchValue("")
-  // }
-
-  // const callSearchFunction = (e) => {
-  //   e.preventDefault();
-  //   props.search(searchValue);
-  //   resetInputField();
-  // }
   const handleSearchInputChange = e => {
     searchHandler(e.target.value);
   };
@@ -31,7 +16,7 @@ const ProductsHeader = ({ searchHandler }) => {
         <div className="category-link-list-wrapper cc-heading-category">
           <div className="category-link-list-wrap cc-category-list cc-heading-category">
             <div className="category-link-wrapper cc-heading-category">
-              <a href="/products" aria-current="page" className="category-link cc-heading-category w--current">All Products</a>
+              <a href="/#/products" aria-current="page" className="category-link cc-heading-category w--current">All Products</a>
             </div>
             <div className="category-link-wrapper cc-heading-category">
               <a href="#" className="category-link cc-heading-category">fruits &amp; vegetables</a>

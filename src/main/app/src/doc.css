@@ -3522,7 +3522,7 @@ figcaption {
   margin: auto;
   border-radius: 8px;
   /* background-image: url('../images/danijela-prijovic-qits91IZv1o-unsplash.jpg'); */
-  background-position: 50% 100%;
+  background-position: 50% 50%;
   box-shadow: 1px 1px 4px 0 #000;
   -webkit-transition-property: all;
   transition-property: all;
@@ -4010,7 +4010,7 @@ figcaption {
   -ms-flex-align: center;
   align-items: center;
   /* background-image: url('../images/ari-he-hOPX0q45u9w-unsplash.jpg'); */
-  background-position: 50% 100%;
+  background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -4156,7 +4156,7 @@ figcaption {
   -ms-flex: 2 auto;
   flex: 2 auto;
   /* background-image: url('../images/fran-hogan-eBArcwOXLOk-unsplash.jpg'); */
-  background-position: 50% 100%;
+  background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -4443,6 +4443,9 @@ figcaption {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-flex: 0;
   -webkit-flex: 0 20%;
   -ms-flex: 0 20%;
@@ -4450,7 +4453,7 @@ figcaption {
 }
 
 .order-sum-item-price {
-  margin: auto 25px auto auto;
+  margin: 0 25px auto auto;
   font-size: 14px;
   font-weight: 600;
   text-align: right;
@@ -4591,7 +4594,7 @@ figcaption {
 .msg-banner-wrap {
   position: absolute;
   left: 0px;
-  top: 0px;
+  top: -90px;
   right: 0px;
   height: 50px;
 }
@@ -6098,4 +6101,20 @@ button:focus{
   font-size: 14px;
   text-decoration: line-through;
   color:hsla(180, 1.89%, 79.22%, 1)
+}
+
+.order-sum-item-price-discount {
+  margin: auto 25px 0 auto;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
+  text-decoration: line-through;
+  color:hsla(180, 1.89%, 79.22%, 1)
+}
+
+.order-sum-item-price-no-disc {
+  margin: auto 25px auto auto;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
 }

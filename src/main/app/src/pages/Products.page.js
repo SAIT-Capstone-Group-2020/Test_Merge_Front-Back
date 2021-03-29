@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import useScript from '../utils/useScript.hook';
 import Navbar from '../components/hoc/Navbar';
@@ -12,14 +12,32 @@ import Footer from '../components/hoc/Footer';
 function Products() {
 	const [ products, setProducts ] = useState([]);
 	const [ searchValue, setSearchValue ] = useState('');
+	const [ sortValue, setSortValue ] = useState('');
 	const [ loading, setLoading ] = useState(false);
+	let location = useLocation();
+
+	// since the initial load is undefined, reload and it shoud show up
+	if(!location.state) {
+    window.location.reload();
+	}
+	if (location.state.sort) {
+		localStorage.setItem('sortInput', location.state.sort);
+	}
+
+	if (location.state.category) {
+		localStorage.setItem('categoryInput', location.state.category);
+	}
 
 	useEffect(() => {
 		setLoading(true);
 		axios
-			.get('https://hha-capstone.herokuapp.com/api/customer/product')
+			.get(
+				`https://hha-capstone.herokuapp.com/api/customer/search?cate=${localStorage.getItem(
+					'categoryInput'
+				)}&sort=discount_price:${localStorage.getItem('sortInput')}`
+			)
 			.then((res) => {
-				setProducts(res.data);
+				setProducts(res.data.content);
 				setLoading(false);
 			})
 			.catch((err) => {
@@ -29,6 +47,10 @@ function Products() {
 
 	const searchHandler = (value) => {
 		setSearchValue(value);
+	};
+
+	const sortHandler = (value) => {
+		setSortValue(value);
 	};
 
 	let updateProducts = products.filter((item) => {
@@ -46,12 +68,15 @@ function Products() {
 			<div class="product-list-section cc-product-list-section">
 				<CategorySidebar />
 				<div class="product-list-elements-wrapper">
-					<SortDropdown />
+					<SortDropdown sortHandler={sortHandler} />
 					<div class="product-list-wrapper">
 						<div class="product-list-wrap">
 							{(searchValue === '' ? products : updateProducts).map((product) => (
 								<div class="product" key={product.product_name}>
-									<a href={`/product/${product.product_id}`}  class="product-thumbnail-link w-inline-block">
+									<a
+										href={`/#/product/${product.product_id}`}
+										class="product-thumbnail-link w-inline-block"
+									>
 										<div
 											class="product-thumbnail-image"
 											style={{ backgroundImage: `url(${product.image_url})` }}
@@ -63,8 +88,11 @@ function Products() {
 											<div class="product-price-text">${product.discount_price}</div>
 										</div>
 									</a>
-									<a href={`/product/${product.product_id}`}  class="product-thumbnail-button-link w-inline-block">
-										<h6 class="product-thumbnail-button-text">in store only</h6>
+									<a
+										href={`/#/product/${product.product_id}`}
+										class="product-thumbnail-button-link w-inline-block"
+									>
+										<h6 class="product-thumbnail-button-text">read more</h6>
 									</a>
 								</div>
 							))}

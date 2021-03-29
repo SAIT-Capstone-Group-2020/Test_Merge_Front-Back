@@ -124,7 +124,7 @@ public class OrderService {
 
     public Page<Order> getOrders(
             String status, String orderDate, String paidDate, String category, String product,
-            String phone, String email, String customerName, String sort, String page, String pageSize) {
+            String phone, String email, String customerName, String sort, String page, String pageSize,String all) {
 
         String sortProp = "orders_id";
         String order = "desc";
@@ -133,6 +133,7 @@ public class OrderService {
 
         if ( page != null ) pageNumber = Integer.parseInt(page);
         if( pageSize != null) pageS = Integer.parseInt(pageSize);
+        if( all != null) pageS = 9999;
 
         if ( sort != null) {
             sortProp= sort.split(":")[0];
@@ -157,7 +158,7 @@ public class OrderService {
         Date maxPaidDate = null;
 
              try {
-            minOrderDate = sdf.parse("2021-01-01");
+            minOrderDate = sdf.parse("2020-01-01");
             maxOrderDate = sdf.parse("3021-01-01");
             minPaidDate = sdf.parse("0000-00-00");
             maxPaidDate = sdf.parse("3021-01-01");
@@ -248,7 +249,7 @@ public class OrderService {
         List<OrderItemDto> list = orderInfoRepo.listAllItem(id);
         Order order = orderRepo.findById(id);
 
-        OrderInfoDto orderInfo = new OrderInfoDto(order.getEmail(), order.getPhone(), order.getOrderName(), order.getId());
+        OrderInfoDto orderInfo = new OrderInfoDto(order.getEmail(), order.getPhone(), order.getOrderName(), order.getId(), order.getOrderDate(), order.getPaidDate(), order.getStatus());
         orderInfo.setItemList(list);
 
         return orderInfo;

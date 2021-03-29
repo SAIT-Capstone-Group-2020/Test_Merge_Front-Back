@@ -1,22 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './redux/store';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { StoreProvider } from './components/hoc/Store';
+
+// ! Replace Provider with storeProvider later
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <Router forceRefresh>
-        <PersistGate persistor={persistor}>
+  <StoreProvider>
+      <Router forceRefresh basename="/#">
           <App />
-        </PersistGate>
       </Router>
-    </Provider>
+  </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
