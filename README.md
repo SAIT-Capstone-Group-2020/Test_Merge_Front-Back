@@ -1,3 +1,5 @@
+https://hha-merge.herokuapp.com/#
+
 How to set up
 
 1. Install JDK(JAVA SE 8)
